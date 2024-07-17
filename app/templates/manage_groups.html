@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+{% block title %}Manage Groups{% endblock %}
+
+{% block content %}
+    <h2>Manage Groups</h2>
+    <a href="{{ url_for('main.create_group') }}">Create New Group</a>
+    <table>
+        <thead>
+            <tr>
+                <th>Group Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for group in groups %}
+                <tr>
+                    <td>{{ group.name }}</td>
+                    <td>
+                        <form action="{{ url_for('main.delete_group', group_id=group.id) }}" method="POST" style="display:inline;">
+                            <button type="submit">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

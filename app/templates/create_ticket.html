@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+{% block title %}New Ticket{% endblock %}
+
+{% block content %}
+    <h2>Create Ticket</h2>
+    <form method="POST" action="{{ url_for('main.new_ticket') }}">
+        {{ form.hidden_tag() }}
+        <div>
+            {{ form.note.label }}<br>
+            {{ form.note(rows=4, cols=40) }}<br>
+            {% for error in form.note.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </div>
+        {% if current_user.role == 'Admin' %}
+             <div>
+            {{ form.group.label }}<br>
+            {{ form.group() }}<br>
+            {% for error in form.group.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </div>
+        {% endif %}
+        <div>
+            {{ form.status.label }}<br>
+            {{ form.status() }}<br>
+            {% for error in form.status.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </div>
+        <div>
+            {{ form.assigned_user.label }}<br>
+            {{ form.assigned_user() }}<br>
+            {% for error in form.assigned_user.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </div>
+        <div>
+            {{ form.submit() }}
+        </div>
+    </form>
+{% endblock %}

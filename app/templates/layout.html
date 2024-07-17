@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %} - Ticket System</title>
+</head>
+<body>
+    <nav>
+        <ul>
+            {% if current_user.is_authenticated %}
+                <h3>Role: {{ current_user.role }}</h3>
+                <li><a href="{{ url_for('main.dashboard') }}">Dashboard</a></li>
+                {% if current_user.role == 'Admin' or current_user.role == 'Manager' %}
+                    <li><a href="{{ url_for('main.new_ticket') }}">New Ticket</a></li>
+                {% endif %}
+                {% if current_user.role == 'Admin' %}
+                    <li><a href="{{ url_for('main.manage_groups') }}">Manage Groups</a></li>
+                    <li><a href="{{ url_for('main.create_group') }}">Create Group</a></li>
+                    <li><a href="{{ url_for('main.manage_users') }}">Manage Users</a></li>
+                {% endif %}
+                <li><a href="{{ url_for('main.logout') }}">Logout</a></li>
+            {% else %}
+                <li><a href="{{ url_for('main.login') }}">Login</a></li>
+                <li><a href="{{ url_for('main.register') }}">Register</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+    <div class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>
