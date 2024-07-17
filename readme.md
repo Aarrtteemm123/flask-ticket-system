@@ -16,7 +16,7 @@ These instructions will help you set up and run the project on your local machin
 1. **Clone the repository:**
 
     ```sh
-    git clone https://github.com/yourusername/flask-ticket-system.git
+    git clone https://github.com/Aarrtteemm123/flask-ticket-system.git
     cd flask-test
     ```
 
