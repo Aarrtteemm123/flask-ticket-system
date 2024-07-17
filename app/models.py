@@ -19,11 +19,11 @@ class User(db.Model, UserMixin):
     role = db.Column(db.String(20), nullable=False)
     group_id = db.Column(db.Integer, db.ForeignKey('group.id'), nullable=True)
 
-    # @staticmethod
-    # def validate_role(role):
-    #     valid_roles = [role.value for role in UserRole]
-    #     if role not in valid_roles:
-    #         raise ValueError(f"Invalid role. Valid roles are: {', '.join(valid_roles)}")
+    @staticmethod
+    def validate_role(role):
+        valid_roles = [role.value for role in UserRole]
+        if role not in valid_roles:
+            raise ValueError(f"Invalid role. Valid roles are: {', '.join(valid_roles)}")
 
 
 class Group(db.Model):
